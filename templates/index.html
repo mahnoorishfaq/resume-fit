@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume Fit — see how your resume reads against a job</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="/">Resume&nbsp;Fit</a>
+    <button class="link-btn" id="howBtn">How the score works</button>
+  </div>
+</header>
+
+<!-- ---------------- intro ---------------- -->
+<section class="intro">
+  <div class="wrap">
+    <h1>See your resume the way a screening system sees it.</h1>
+    <p class="lede">Upload your resume, give it a job ad, and get back the
+    skills that landed, the ones that are missing, and what to learn next.
+    Nothing is stored the file is read in memory and discarded.</p>
+  </div>
+</section>
+
+<!-- ---------------- the two inputs ---------------- -->
+<section class="wrap">
+  <div class="diptych">
+
+    <!-- LEFT: resume -->
+    <div class="panel" id="panelResume">
+      <div class="panel-head">
+        <span class="step">Step 1</span>
+        <h2>Your resume</h2>
+      </div>
+
+      <label class="drop" id="drop" for="resumeInput">
+        <input type="file" id="resumeInput" accept=".pdf,.docx,.txt" hidden>
+        <svg class="drop-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 17v1.5A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5V17"/>
+        </svg>
+        <span class="drop-main">Drop your resume here, or click to browse</span>
+        <span class="drop-sub">PDF, DOCX or TXT · up to 5 MB</span>
+      </label>
+
+      <div class="file-chip" id="fileChip" hidden>
+        <span class="file-name" id="fileName"></span>
+        <button type="button" class="file-clear" id="fileClear"
+                aria-label="Remove file">Remove</button>
+      </div>
+
+      <p class="panel-note">Exporting from Word or Google Docs as PDF works
+      best. A scanned or photographed resume has no readable text.</p>
+    </div>
+
+    <!-- RIGHT: job -->
+    <div class="panel" id="panelJob">
+      <div class="panel-head">
+        <span class="step">Step 2</span>
+        <h2>The job you're applying for</h2>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" role="tab" data-mode="custom"
+                aria-selected="true">Paste a job ad</button>
+        <button class="tab" role="tab" data-mode="library"
+                aria-selected="false">Try a sample role</button>
+      </div>
+
+      <!-- paste your own -->
+      <div class="tab-body" id="modeCustom">
+        <label class="field-label" for="jobTitle">Job title
+          <span class="optional">optional</span></label>
+        <input type="text" id="jobTitle" class="text-input"
+               placeholder="e.g. Machine Learning Intern">
+
+        <label class="field-label" for="jobText">Paste the full job
+          description</label>
+        <textarea id="jobText" class="text-area" rows="9"
+          placeholder="Copy the whole posting from LinkedIn, Indeed, Rozee.pk or the company's careers page and paste it here.&#10;&#10;Include the requirements and responsibilities sections — that is where the skills live."></textarea>
+        <div class="counter"><span id="charCount">0</span> characters ·
+          <span id="charHint">paste at least 60 to analyse</span></div>
+      </div>
+
+      <!-- sample library -->
+      <div class="tab-body" id="modeLibrary" hidden>
+        <p class="panel-note tight">No job ad to hand? Pick one of these
+        sample roles to see how the tool works. They are realistic examples,
+        not live postings.</p>
+        <div class="role-list" id="roleList">
+          {% for job in jobs %}
+          <label class="role">
+            <input type="radio" name="job_index" value="{{ loop.index0 }}"
+                   {% if loop.first %}checked{% endif %}>
+            <span class="role-body">
+              <span class="role-title">{{ job.title }}</span>
+              <span class="role-meta">{{ job.company }} · {{ job.level }} ·
+                {{ job.location }}</span>
+            </span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-row">
+    <button class="cta" id="analyseBtn" disabled>Check the match</button>
+    <span class="action-hint" id="actionHint">Add a resume and a job
+      description to continue</span>
+  </div>
+
+  <div class="alert" id="alert" hidden></div>
+</section>
+
+<!-- ---------------- results ---------------- -->
+<main class="results wrap" id="results" hidden>
+
+  <div class="verdict">
+    <div class="score-block">
+      <div class="score" id="score">0<span class="pct">%</span></div>
+      <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+    </div>
+    <div class="verdict-text">
+      <h2 id="verdictLabel"></h2>
+      <p id="verdictNote"></p>
+      <p class="against">Measured against <strong id="jobLabel"></strong></p>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-n" id="statCoverage">0%</div>
+      <div class="stat-l">of the role's skills your resume shows</div></div>
+    <div class="stat"><div class="stat-n" id="statMatched">0</div>
+      <div class="stat-l">skills matched</div></div>
+    <div class="stat"><div class="stat-n" id="statMissing">0</div>
+      <div class="stat-l">skills missing</div></div>
+    <div class="stat"><div class="stat-n" id="statHealth">0</div>
+      <div class="stat-l">resume health out of 100</div></div>
+  </div>
+
+  <section class="block">
+    <div class="skills-grid">
+      <div>
+        <h3 class="block-title">Skills that landed</h3>
+        <div class="chips" id="matchedChips"></div>
+      </div>
+      <div>
+        <h3 class="block-title gap">Skills the job wants that you didn't show</h3>
+        <div class="chips" id="missingChips"></div>
+      </div>
+    </div>
+    <p class="fine">If you have one of these and it isn't showing, the tool
+    couldn't find the word in your resume. That is itself worth knowing a
+    screening system would miss it too.</p>
+  </section>
+
+  <section class="block" id="planBlock">
+    <h3 class="block-title">What to learn next</h3>
+    <p class="block-lede">Ordered by leverage. Skills marked as high leverage
+    appear in many job ads and rarely in student resumes, so closing those
+    gaps moves you furthest.</p>
+    <div id="planList"></div>
+  </section>
+
+  <section class="block">
+    <h3 class="block-title">Is the resume itself well built?</h3>
+    <p class="block-lede">These checks run on your document alone, whatever
+    job you picked. They are the things automated screens and human readers
+    both notice.</p>
+    <div id="checkList"></div>
+  </section>
+
+  <section class="block">
+    <h3 class="block-title">Roles that fit you better</h3>
+    <p class="block-lede">Your resume scored against every sample role. Useful
+    for spotting the direction you already fit, not just the one you tested.</p>
+    <div id="recList"></div>
+  </section>
+
+  <div class="restart">
+    <button class="ghost-btn" id="againBtn">Check another job</button>
+  </div>
+</main>
+
+<!-- ---------------- how it works ---------------- -->
+<dialog id="howDialog" class="dialog">
+  <h2>How the score works</h2>
+  <p>Two things are measured and combined.</p>
+  <p><strong>Skill coverage (75% of the score).</strong> Both documents are
+  scanned for known skills using a dictionary of aliases, so "sklearn",
+  "scikit-learn" and "scikit learn" all count as the same thing. Coverage is
+  the share of the job's skills that appear in your resume.</p>
+  <p><strong>Wording similarity (25%).</strong> TF-IDF cosine similarity
+  between the two documents. This catches overlap in how things are
+  described, not just skill names.</p>
+  <h3>What it cannot do</h3>
+  <p>It cannot tell a skill you <em>used</em> from one you merely
+  <em>listed</em>. Someone who stuffs a skills section with keywords will
+  score well. Treat the number as a prompt to look closer, not a verdict on
+  whether to apply.</p>
+  <button class="cta small" id="howClose">Close</button>
+</dialog>
+
+<footer class="foot">
+  <div class="wrap">Files are processed in memory and never saved. Scores are
+  a guide, not a gate.</div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

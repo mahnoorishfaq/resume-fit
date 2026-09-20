@@ -1,0 +1,86 @@
+[
+  {
+    "title": "Machine Learning Intern",
+    "company": "Fintech startup",
+    "level": "Internship",
+    "location": "Lahore (onsite)",
+    "description": "We are looking for a machine learning intern to work on credit risk models. You will clean and prepare transaction data, build classification models with scikit-learn, and evaluate them properly. Requirements: strong Python, pandas and NumPy, understanding of supervised learning, SQL for pulling data, and Git for version control. Experience with feature engineering and handling imbalanced datasets is a plus. You should be able to explain your modelling decisions clearly to non-technical stakeholders."
+  },
+  {
+    "title": "Data Science Intern",
+    "company": "E-commerce platform",
+    "level": "Internship",
+    "location": "Remote",
+    "description": "Join our analytics team to work on customer behaviour analysis. Responsibilities include writing SQL queries against our warehouse, building dashboards, running A/B tests and presenting findings. Required: Python with pandas, SQL, statistics including hypothesis testing, and data visualization with matplotlib or seaborn. Familiarity with Power BI or Tableau is useful. We value clear communication and the ability to turn analysis into a recommendation."
+  },
+  {
+    "title": "NLP Engineer",
+    "company": "Conversational AI company",
+    "level": "Junior",
+    "location": "Remote",
+    "description": "Build and improve natural language processing pipelines for our chat products. You will work on text classification, named entity recognition and intent detection. Requirements: Python, strong NLP fundamentals, experience with transformers and the Hugging Face ecosystem, PyTorch or TensorFlow, and familiarity with LLMs and prompt engineering. Experience building RAG systems is highly desirable. You should be comfortable with Git and deploying models behind an API."
+  },
+  {
+    "title": "Junior Data Analyst",
+    "company": "Healthcare provider",
+    "level": "Junior",
+    "location": "Lahore (hybrid)",
+    "description": "Support clinical and operational teams with data analysis. You will write SQL, clean messy datasets, produce regular reports and build dashboards. Required: SQL, Excel, Python or R for analysis, data visualization skills, and solid statistics. Attention to detail matters here because the data is patient-facing. Strong written communication is essential as you will be documenting findings for non-technical readers."
+  },
+  {
+    "title": "AI Engineer - LLM Applications",
+    "company": "B2B SaaS",
+    "level": "Junior",
+    "location": "Remote",
+    "description": "We are building LLM-powered features into our product. You will design prompts, build retrieval augmented generation pipelines, evaluate outputs and ship to production. Requirements: Python, experience with LLMs and APIs, vector databases, LangChain or LlamaIndex, and an understanding of embeddings. You should know Docker, be comfortable with cloud deployment on AWS or GCP, and be able to build a working demo quickly with Streamlit or FastAPI."
+  },
+  {
+    "title": "Computer Vision Intern",
+    "company": "Agritech",
+    "level": "Internship",
+    "location": "Lahore (onsite)",
+    "description": "Work on crop disease detection from field images. You will label and augment image datasets, train convolutional neural networks using transfer learning, and evaluate model performance. Requirements: Python, deep learning fundamentals, PyTorch or TensorFlow and Keras, OpenCV for image processing, and NumPy. Understanding of object detection models such as YOLO is a plus. You will need patience for messy real-world image data."
+  },
+  {
+    "title": "MLOps Engineer",
+    "company": "Logistics technology",
+    "level": "Mid",
+    "location": "Remote",
+    "description": "Own the infrastructure that gets our models into production and keeps them healthy. Responsibilities: containerize models with Docker, build deployment pipelines, set up experiment tracking with MLflow, and monitor model performance over time. Requirements: strong Python, Docker, cloud experience on AWS, Linux and bash, API development with FastAPI, Git and CI/CD. Understanding of machine learning fundamentals is required but you will not be building models day to day."
+  },
+  {
+    "title": "Data Engineer - Entry Level",
+    "company": "Telecom",
+    "level": "Junior",
+    "location": "Lahore (onsite)",
+    "description": "Build and maintain data pipelines feeding our analytics platform. You will write ETL jobs, work with large datasets, and ensure data quality. Requirements: Python, strong SQL, experience with Spark or PySpark, understanding of data warehousing, Linux, and Git. Exposure to cloud platforms and Docker is valuable. Data cleaning and wrangling make up much of the work, so tolerance for messy input is essential."
+  },
+  {
+    "title": "Research Assistant - Applied ML",
+    "company": "University research lab",
+    "level": "Internship",
+    "location": "Lahore (onsite)",
+    "description": "Assist with research projects in applied machine learning. You will implement models from papers, run experiments, and help write up results. Requirements: Python, strong machine learning and deep learning fundamentals, PyTorch, statistics, and the ability to read academic papers. Experience with NLP or computer vision depending on project. Clear technical writing and documentation skills are important as outputs are publications."
+  },
+  {
+    "title": "Business Intelligence Analyst",
+    "company": "Retail chain",
+    "level": "Junior",
+    "location": "Lahore (onsite)",
+    "description": "Turn sales and inventory data into decisions for the commercial team. You will build and maintain dashboards, write SQL queries, and run ad hoc analysis. Requirements: advanced SQL, Power BI or Tableau, Excel, and basic Python for automation. Statistics knowledge helps for forecasting work. This role is heavy on stakeholder communication - you will present to managers weekly."
+  },
+  {
+    "title": "Python Developer - AI Team",
+    "company": "Software house",
+    "level": "Junior",
+    "location": "Lahore (hybrid)",
+    "description": "Support our AI team by building the software around the models. You will develop REST APIs with FastAPI or Flask, integrate models into applications, and write tests. Requirements: strong Python, API development, Git, SQL, and Docker. Understanding of machine learning concepts needed to work effectively with the data science team. Experience with cloud deployment and Linux is valuable."
+  },
+  {
+    "title": "Analytics Intern",
+    "company": "Ride-hailing",
+    "level": "Internship",
+    "location": "Remote",
+    "description": "Work with the growth team on user retention analysis. You will pull data with SQL, analyse cohorts in Python with pandas, visualize trends, and support A/B test analysis. Requirements: SQL, Python with pandas, statistics including hypothesis testing, and data visualization. You should be curious about product and comfortable presenting findings. No machine learning required but exposure is welcome."
+  }
+]

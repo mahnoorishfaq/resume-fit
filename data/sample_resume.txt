@@ -1,0 +1,28 @@
+MAHNOOR ISHFAQ
+Lahore, Pakistan | mahnoor@example.com | +92 300 1234567
+github.com/mahnoorishfaq | linkedin.com/in/mahnoorishfaq
+
+EDUCATION
+BS Artificial Intelligence, 2023-2027
+Relevant coursework: Machine Learning, Computer Networks, Data Structures
+
+PROJECTS
+Campus Route Finder
+Built a shortest-path application in Python using Streamlit, deployed to
+Streamlit Community Cloud. Implemented Dijkstra's algorithm over a graph of
+40 campus locations.
+
+AI-Powered HR Automation System (Final Year Project)
+Designed a multi-agent architecture covering recruitment through offboarding.
+Built the CV screening agent using Python and pandas.
+
+Bank Management System
+Developed a Java application using object-oriented principles with 6 classes.
+
+SKILLS
+Python, pandas, NumPy, scikit-learn, Java, Git, GitHub, Streamlit,
+Machine Learning, data visualization, matplotlib
+
+ACTIVITIES
+Responsible for organising the departmental tech session. Team player with
+good communication skills.
