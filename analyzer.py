@@ -72,7 +72,6 @@ def _read_docx(raw):
         import docx
         document = docx.Document(io.BytesIO(raw))
         parts = [p.text for p in document.paragraphs if p.text.strip()]
-        # Tables often hold skills sections
         for table in document.tables:
             for row in table.rows:
                 for cell in row.cells:
@@ -144,7 +143,6 @@ def analyse_fit(resume_text, job_text):
     missing = sorted(job_skills - resume_skills)
     extra = sorted(resume_skills - job_skills)
 
-    # Skill coverage is the signal that actually matters
     if job_skills:
         coverage = len(matched) / len(job_skills) * 100
     else:
@@ -152,8 +150,6 @@ def analyse_fit(resume_text, job_text):
 
     wording = text_similarity(resume_text, job_text)
 
-    # Weight coverage far higher than wording overlap. Matching the
-    # required skills matters more than using the same vocabulary.
     score = round(coverage * 0.75 + wording * 0.25)
     score = max(0, min(100, score))
 
@@ -244,7 +240,6 @@ def health_checks(text, filename=""):
     words = text.split()
     word_count = len(words)
 
-    # Contact details
     has_email = bool(re.search(r"[\w.+-]+@[\w-]+\.[\w.]+", text))
     has_phone = bool(re.search(r"(\+?\d[\d\s\-()]{8,}\d)", text))
     if has_email and has_phone:
@@ -258,7 +253,6 @@ def health_checks(text, filename=""):
                        "No email address found. This alone can sink an "
                        "application."))
 
-    # Links
     has_link = bool(re.search(r"(github\.com|linkedin\.com|gitlab\.com)", lowered))
     checks.append(("Portfolio links", has_link,
                    "GitHub or LinkedIn link found."
@@ -266,7 +260,6 @@ def health_checks(text, filename=""):
                    "No GitHub or LinkedIn link. For a technical role this is "
                    "expected."))
 
-    # Length
     if word_count < 200:
         checks.append(("Length", False,
                        f"Only {word_count} words. This reads as thin - "
@@ -279,7 +272,6 @@ def health_checks(text, filename=""):
         checks.append(("Length", True,
                        f"{word_count} words, which sits in a good range."))
 
-    # Standard sections
     expected = ["experience", "education", "skill", "project"]
     present = [s for s in expected if s in lowered]
     if len(present) >= 3:
@@ -292,7 +284,6 @@ def health_checks(text, filename=""):
                        f"Missing clear headings for: {', '.join(missing)}. "
                        f"Automated parsers look for these words."))
 
-    # Quantified results
     numbers = re.findall(r"\b\d+(?:\.\d+)?%?\b", text)
     meaningful = [n for n in numbers if len(n) > 1]
     if len(meaningful) >= 5:
@@ -304,7 +295,6 @@ def health_checks(text, filename=""):
                        "Few numbers found. 'Cut processing time by 40%' "
                        "beats 'improved processing time'."))
 
-    # Action verbs
     starts = re.findall(r"(?:^|\n)\s*[-•*\u2022]?\s*(\w+)", text)
     verb_hits = sum(1 for w in starts if w.lower() in ACTION_VERBS)
     if verb_hits >= 4:
@@ -315,7 +305,6 @@ def health_checks(text, filename=""):
                        "Start bullet points with what you did: built, "
                        "designed, reduced, automated."))
 
-    # Filler phrases
     found_weak = [p for p in WEAK_PHRASES if p in lowered]
     if found_weak:
         checks.append(("Filler phrases", False,
@@ -325,7 +314,6 @@ def health_checks(text, filename=""):
         checks.append(("Filler phrases", True,
                        "No common filler phrases found."))
 
-    # File format
     if filename.lower().endswith(".pdf"):
         checks.append(("File format", True,
                        "PDF keeps your formatting intact across systems."))
